@@ -15,15 +15,6 @@
     --font-family-base: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-family-title: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
  
-    /* nav item */
-    --nav-item-font-family: var(--font-family-title);
-    --nav-item-font-weight: var(--font-weight-bold);
-    --nav-item-font-size: var(--font-size-medium);
-    --nav-item-letter-spacing: 4%;
-    --nav-item-display: inline-block;
-    --nav-item-margin: 0 0 3rem;
-    --nav-item-link-hover: var(--color-primary);
-
     /* fonts size */
     --font-size-small: 1.2rem;
     --font-size-medium: 1.6rem;
@@ -49,6 +40,14 @@
     --section-footer-align: center;
     --footer-padding: 5rem 0 1rem;
 
+     /* nav item */
+     --nav-item-font-family: var(--font-family-title);
+     --nav-item-font-weight: var(--font-weight-bold);
+     --nav-item-font-size: var(--font-size-medium);
+     --nav-item-letter-spacing: 4%;
+     --nav-item-display: inline-block;
+     --nav-item-margin: 0 0 3rem;
+     --nav-item-link-hover: var(--color-primary); 
 }
 
 *, *:before, *:after {
