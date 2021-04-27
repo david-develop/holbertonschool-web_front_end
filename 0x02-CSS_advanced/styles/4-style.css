@@ -12,7 +12,7 @@
 }
 
 html {
-    overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 body {
