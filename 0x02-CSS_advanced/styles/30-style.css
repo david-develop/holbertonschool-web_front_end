@@ -341,7 +341,7 @@ ul.row {
     height: 30rem;
     width: 100%;
     object-fit: cover;
-    bottom: 0;
+    vertical-align: bottom;
 }
 
 .card-work .card-inner {
@@ -376,6 +376,7 @@ ul.row {
     right: 0;
     left: 0;
     bottom: 0;
+    content: "";
 }
 
 .card-work:hover .card-title {
