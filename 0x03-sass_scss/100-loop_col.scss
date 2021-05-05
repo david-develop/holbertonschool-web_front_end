@@ -1,0 +1,6 @@
+/* My style */
+@for $i from 1 through 4 {
+    col-#{$i} {
+        font-size: 100%/$i;
+    }
+}
