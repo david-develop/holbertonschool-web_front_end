@@ -1,8 +1,9 @@
 /* My style */
+$color-text: #3D3D3D;
 body {
-    color: #3D3D3D;
+    color: $color-text;
 }
 
 p {
-    color: #3D3D3D;
+    color: $color-text;
 }
