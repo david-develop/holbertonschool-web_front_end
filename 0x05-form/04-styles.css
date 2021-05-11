@@ -680,7 +680,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 0;
+  border: none;
   padding: 0 0 2rem;
 }
 
@@ -689,7 +689,7 @@ label {
   display: block;
   white-space: nowrap;
   font-size: 1.4rem;
-  padding: 0 0 .5rem;
+  padding: 0 0 0.5rem;
 }
 
 input[type="text"],
@@ -698,8 +698,8 @@ textarea {
   position: relative;
   width: 100%;
   padding: 1.2rem;
-  line-height: 1.2rem;
-  border: .1rem solid var(--color-black);
+  line-height: 1;
+  border: 0.1rem solid var(--color-black);
   background-color: var(--color-white);
   box-shadow: none;
   outline: 0;
@@ -711,10 +711,9 @@ input[type="email"] {
 }
 
 input[type="text"]:focus,
-input[type="email"]:focus, 
+input[type="email"]:focus,
 textarea:focus {
-  border: .1rem solid var(--color-grey);
-  background-color: var(--color-light-grey);
+  border: 0.1rem solid var(--color-grey);
 }
 
 ::placeholder {
