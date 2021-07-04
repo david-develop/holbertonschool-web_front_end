@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Task 9</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .loading {
+            opacity: 0.2;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function createSearchForm() {
+            $('body').append($('<form></form>').append(
+                $('<input type="text">'),
+                $('<input type="submit">'),
+            ),
+                $('<ul></ul>'),
+                $('<ul id="pagination"></ul>'));
+            $('form input[type="submit"]').click((e) => {
+                e.preventDefault();
+                queryWikipedia($('input').first().val());
+            });
+        }
+
+        function addNewArticle(id, title, snippet) {
+            let newElement = $('<li></li>');
+            let paragraphOne = $(`<p><span>${id} - <b>${title}</b></span></p>`);
+            let paragraphTwo = $(`<p>${snippet}</p>`);
+
+            newElement.append(paragraphOne, paragraphTwo);
+            $('ul').first().append(newElement);
+        }
+
+        function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+            $('#pagination').empty();
+            for (let i = 1; i <= numberOfItems / itemsPerPage; i++) {
+                let newItem = $(`<span>${i}</span>`);
+                if (i == currentOffset + 1) {
+                    newItem.css({ 'font-weight': 'bold' });
+                }
+                $('#pagination').append(newItem.css({ 'cursor': 'pointer', 'margin-left': '10px' }));
+            }
+            $('#pagination span').click(function () {
+                let newOffset = parseInt($(this).text()) - 1;
+                queryWikipedia($('input').first().val(), newOffset);
+            });
+        }
+
+        function queryWikipedia(search, offset = 0) {
+            displayLoading(true);
+            let url = 'https://en.wikipedia.org/w/api.php';
+            let params = {
+                action: 'query',
+                list: 'search',
+                srsearch: search,
+                format: 'json',
+                sroffset: offset,
+            };
+
+            url = url + '?origin=*';
+            Object.keys(params).forEach((key) => url += '&' + key + '=' + params[key]);
+
+            $.ajax({
+                method: 'GET',
+                url: url,
+                dataType: 'json'
+            }).done(function (response) {
+                displayLoading(false);
+                let itemsPerPage = 10;
+                let numberOfItems = response.query.searchinfo.totalhits;
+                buildPagination(numberOfItems, itemsPerPage, offset);
+                
+                $('ul').first().empty();
+                response.query.search.forEach((result) => {
+                    addNewArticle(result.pageid, result.title, result.snippet);
+                });
+            });
+        }
+
+        function displayLoading(loading) {
+            let resultList = $('ul').first();
+            (loading) ? resultList.wrap('<div class="loading"></div>') : resultList.unwrap();
+        }
+        createSearchForm()
+
+    </script>
+</body>
+
+</html>

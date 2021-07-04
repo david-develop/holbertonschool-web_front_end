@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Task 11</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function buildForm() {
+            $('body').append($('<form></form>').append(
+                $('<div></div>').append(
+                    $('<lable for="author">Author</lable>'),
+                    $('<input type="text" id="author">')
+                ),
+                $('<div></div>').append(
+                    $('<lable for="title">Title</lable>'),
+                    $('<textarea id="title"></textarea>')
+                ),
+                $('<input type="submit" value="Submit">'),
+            ));
+            $('form lable').click((e) => {
+                let labelID = $(e.currentTarget).attr('for');
+                $('#' + labelID).focus();
+            });
+            $('form input[type="submit"]').click((e) => {
+                e.preventDefault();
+                sendForm();
+            });
+        }
+
+        function sendForm() {
+            $('form').after('<span id="sendmsj">About to send the query to the API</span>');
+            let dataInfo = {
+                title: $('#title').val(),
+                author: $('#author').val()
+            }
+            const url = 'http://localhost:3000/posts';
+            $.post(url, dataInfo, function (data) {
+                addPostRow(data);
+                setTimeout(() => {
+                    $('#sendmsj').remove();
+                }, 1000)
+            }).fail(function () {
+                alert('Error sending the POST query');
+            });
+        }
+
+        function addPostRow(data) {
+            let paragraph = $('<p></p>').append(`<span>Post created with id ${data.id}, title: ${data.title}, author: ${data.author}</span>`);
+            $('body').append(paragraph);
+        }
+
+        function listPosts() {
+            const url = 'http://localhost:3000/posts';
+            $.get(url, function (data, status, info) {
+                if (info.status == 200) {
+                    data.forEach(element => {
+                        addPostRow(element);
+                    });
+                }
+            }, 'json').fail(function () {
+                alert('Server Error');
+            });
+        }
+        buildForm()
+        listPosts();
+    </script>
+</body>
+
+</html>

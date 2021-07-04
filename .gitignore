@@ -21,3 +21,5 @@ __pycache__/
 *.css.map
 *.sass.map
 *.scss.map
+
+**/node_modules
