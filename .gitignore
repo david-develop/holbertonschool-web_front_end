@@ -22,4 +22,4 @@ __pycache__/
 *.sass.map
 *.scss.map
 
-**/node_modules
+**/*node_modules

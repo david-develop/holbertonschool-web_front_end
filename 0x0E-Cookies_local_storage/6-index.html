@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 6</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        let availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+
+        if (typeof sessionStorage === 'undefined') {
+            alert('Sorry, your browser does not support Web storage. Try again with a better one')
+        } else {
+            function addItemToCart(item) {
+                sessionStorage.setItem(item, true);
+            }
+
+            function createStore() {
+                const ul = document.createElement('ul');
+                availableItems.forEach((res) => {
+                    let li = document.createElement('li');
+                    let item = document.createTextNode(res);
+                    li.append(item);
+                    li.addEventListener('click', () => addItemToCart(res));
+                    ul.append(li);
+                });
+                document.body.append(ul);
+            }
+
+            function displayCart() {
+                if (sessionStorage.length > 0) {
+                    let count = sessionStorage.length;
+                    const paragraph = document.createElement('p');
+                    const newContent = document.createTextNode(`You previously had ${count} items in your cart`);
+                    paragraph.appendChild(newContent);
+
+                    document.body.appendChild(paragraph);
+                }
+            }
+            createStore();
+            displayCart();
+        };
+    </script>
+</body>
+
+</html>

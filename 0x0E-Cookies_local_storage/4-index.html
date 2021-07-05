@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 4</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+</head>
+
+<body>
+    <div id="login-form">
+        <h2>Login to the website</h2>
+        <input type="text" id="firstname">
+        <input type="text" id="email">
+        <button onclick="setCookiesAndShowWelcomeMessage()">Log me in</button>
+    </div>
+
+    <script type="application/javascript">
+        function setCookiesAndShowWelcomeMessage() {
+            let firstName = document.getElementById('firstname').value;
+            let email = document.getElementById('email').value;
+            Cookies.set('firstname', firstName, {expires: 10});
+            Cookies.set('email', email, {expires: 10});
+            showWelcomeMessageOrForm();
+        }
+
+        function showCookies() {
+            const body = document.body;
+            // Paragraph
+            const paragraph = document.createElement('p');
+            paragraph.innerHTML = `Email: ${Cookies.get('email')} - Firstname: ${Cookies.get('firstname')}`;
+            body.appendChild(paragraph);
+        }
+
+        function showForm() {
+            let welcomeMsj = document.getElementById('welcome-msj');
+            if (welcomeMsj) {
+                welcomeMsj.remove();
+            }
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        function hideForm() {
+            document.getElementById('login-form').style.display = 'none';
+        }
+
+        function deleteCookiesAndShowForm() {
+            Cookies.remove('firstname');
+            Cookies.remove('email');
+            showForm();
+        }
+
+        function showWelcomeMessageOrForm() {
+            if (!Cookies.get('email') && !Cookies.get('firstname')) {
+                showForm();
+            } else {
+                hideForm();
+                const body = document.body;
+
+                const heading = document.createElement('h1');
+                heading.setAttribute('id', 'welcome-msj');
+                let msj = document.createTextNode(`Welcome ${Cookies.get('firstname')} `);
+                heading.appendChild(msj);
+
+
+                let a = document.createElement('a');
+                let link = document.createTextNode('(logout)');
+                a.appendChild(link);
+                a.style.cssText = 'font-weight: normal; font-style: italic; margin-left: 10px;';
+                a.addEventListener("click", deleteCookiesAndShowForm);
+
+                heading.append(a);
+                body.append(heading);
+            }
+        }
+        showWelcomeMessageOrForm();
+    </script>
+</body>
+
+</html>
